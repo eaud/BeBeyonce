@@ -1,10 +1,10 @@
-$(document).ready(function() {
-	document.getElementById('startGame').addEventListener('click', function(){
-		Game.start();
-		Game.renderCards();
-	});
-	// Invoke your chain of functions and listeners within window.onload
-});
+$(document).ready(
+	$('#startGame').click(function(){
+		CardGame.createCards();
+		CardGame.renderCards();
+    $('#startGame').hide();
+  })
+);
 
 //TIMER FUNCTION
 
@@ -27,72 +27,109 @@ var CardGame = (function(){
           /*link 2*/ 'http://pre14.deviantart.net/9492/th/pre/i/2013/082/d/e/beyonce_png_by_avriljessie-d5z06o1.png',
           /*link 3*/ 'http://img09.deviantart.net/bf3c/i/2014/272/8/8/png___beyonce_by_andie_mikaelson-d80yii4.png',
           /*link 4*/ 'http://orig01.deviantart.net/87f3/f/2015/043/b/2/beyonce_grammys_png_by_maarcopngs-d8hq2xe.png',
-          /*link 5*/
-          /*link 6*/
-          /*link 7*/
+          /*link 5*/ 'http://static.tumblr.com/8a417df0880b267cced339bda5b9d23a/laskoep/JPAng6yqt/tumblr_static_cqt87nn6q1kcsww0scggo0wgk.png',
+          /*link 6*/ 'http://static.tumblr.com/c5731f27348ab91fc3f11c4c47606142/rsxknpy/3opnps41o/tumblr_static_8piij1fruc08g8oc44so4ogck.png',
+          /*link 7*/ 'https://41.media.tumblr.com/61c51e35008b599beeb16cc1231790bb/tumblr_mincps63y41s5jjtzo1_500.png'
           ];
           var theMichelleArray = [
             'http://25.media.tumblr.com/cb73fea5799a92755f74ce37a7b9fcdf/tumblr_mhobwf9KnT1qkdh9eo3_250.gif'
           ];
 
-          var trackArray = [
-            'flawless', 'halo', 'countdown', 'babyboy'
+          var singleArray = [
+            'flawless', 'halo', 'countdown', 'babyboy', 'blow', 'noangel', 'rocket'
           ];
 
-					var cardArray = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E'];
-//CardObjCreator Combines attributes from the above arrays to make the card objects that will track the game
-          var CardObjCreator(bey, single) {
-            this.bey = link;
+  //----------Constructor Function--------------------------------------------//
+
+//CardObjCreator Combines attributes from the above arrays to make
+//the card objects that will track the game
+          function CardObjCreator(bey, single) {
+            this.bey = bey;
             this.single = single;
           };
 
-
 	//---------variables--------------------------------------------------------//
-          var container = document.getElementById('game');
-					var infoDiv = document.getElementById('info');
+          var container = $('#game');
+					var infoDiv = $('#info');
+          var beyObjArray = [];
 
 	return {
 
 	 //---------functions-------------------------------------------------------//
-				 start : function() {
-					tilesArray = shuffle(tilesArray);
-			 },
+
+//creatCards() uses the CardObjCreator to make an array of card objects that
+//contain a designated photo and "single" that will be used to track the cards
+// during play; we push each beyonce object twice to create a pair (this might fuck me up later);
+// it closes by randomizing the array of objects so that when
+// they are rendered as front-end elements, we can just loop through the array
+         createCards : function(){
+           var shufdBeyArray = shuffle(beyArray);
+
+           for(var i = 0; i < shufdBeyArray.length - 3; i++){
+             var thisBey = new CardObjCreator(shufdBeyArray[i], singleArray[i]);
+             beyObjArray.push(thisBey);
+             beyObjArray.push(thisBey);
+           }
+           var michelleObj = new CardObjCreator(theMichelleArray[0], 'reset');
+           beyObjArray.push(michelleObj);
+           beyObjArray = shuffle(beyObjArray);
+         },
 
 				 renderCards : function() {
-					container.innerHTML = '';
-					infoDiv.innerHTML = '';
-					for (var i = 0; i < tilesArray.length; i++){
-						var curTile = document.createElement('div');
-						curTile.className = "column";
-						curTile.setAttribute('data-value', tilesArray[i]);
-						curTile.addEventListener('click', this.makePlay);
-						container.appendChild(curTile);
-					}
+           container.html('');
+           var theStage = $('<div>');
+           theStage.addClass('stage');
+           for (var i = 0; i < beyObjArray.length; i++){
+             if(i % 3 === 0){
+               var row = $('<div>');
+               row.addClass('row');
+               theStage.append(row);
+             }
+             var currentBey = $('<div>');
+             currentBey.addClass('column');
+             currentBey.attr('id', beyObjArray[i].single);
+             currentBey.click(CardGame.makePlay);
+             currentBey.appendTo(row);
+           }
+           theStage.appendTo(container);
 				},
 
 				 makePlay : function(event) {
            //use jQuery to call the data-code of what was clicked, use that as key in the
 					 event.currentTarget.classList.add("found");
 					 event.currentTarget.classList.add("clicked");
-					 event.currentTarget.innerHTML = event.currentTarget.getAttribute('data-value');
-					 var tilesClicked = document.getElementsByClassName('clicked');
-					 if(tilesClicked.length === 2){Game.checkForMatch()};
+           var beyCurrentHit = event.currentTarget.id;
+           var beyToDisplay;
+           for (i = 0; i < beyObjArray.length; i++){
+             if (beyCurrentHit === beyObjArray[i].single){
+               beyToDisplay = beyObjArray[i].bey;
+             }
+           }
+					 event.currentTarget.innerHTML = '<img src="' + beyToDisplay +'" />';
+           window.setTimeout(function(){
+             if(beyCurrentHit === 'reset'){
+             alert('uh oh, Michelle through the trap door! You better teach her the choreo or this is game OVER!');
+             $('.stage').hide();
+           }}, 1350);
+
+					 var cardsClicked = $('.clicked');
+					 if(cardsClicked.length === 2){CardGame.checkForMatch()};
 				},
 
 				 checkForMatch : function() {
-				 	 var tilesClicked = document.getElementsByClassName('clicked');
-					 		if(tilesClicked[0].innerHTML === tilesClicked[1].innerHTML){
-								for(var i = tilesClicked.length - 1; i >= 0; i --){
-									tilesClicked[i].removeEventListener('click', this.makePlay);
-									tilesClicked[i].classList.remove('clicked');
+				 	 var cardsClicked = $('.clicked');
+					 		if(cardsClicked[0].id === cardsClicked[1].id){
+								for(var i = cardsClicked.length - 1; i >= 0; i --){
+									cardsClicked[i].removeEventListener('click', CardGame.makePlay());
+									cardsClicked[i].classList.remove('clicked');
 								}
 								this.checkForWin();
 							} else {
 								window.setTimeout(function(){
-									for(var i = tilesClicked.length - 1; i >= 0; i --){
-										tilesClicked[i].innerHTML = '';
-										tilesClicked[i].classList.remove('found');
-										tilesClicked[i].classList.remove('clicked');
+									for(var i = cardsClicked.length - 1; i >= 0; i --){
+										cardsClicked[i].innerHTML = '';
+										cardsClicked[i].classList.remove('found');
+										cardsClicked[i].classList.remove('clicked');
 									}
 								}, 1000);
 							}
@@ -118,7 +155,6 @@ var CardGame = (function(){
 var Choreo = (function(){
 
       return{
-
 
       }
 

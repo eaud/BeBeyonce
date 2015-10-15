@@ -4,13 +4,34 @@
 body {
   background: url(http://subtlepatterns.com/images/transp_bg.png);
 }
+
+img {
+  max-height: 100%;
+  max-width: 100%;
+
+}
+
+button {
+  margin-bottom: 20px;
+  width: 100px;
+  height: 100px;
+}
+
+p {
+  font-family: 'Amatic SC', cursive;
+  font-size: 40px;
+  color: #ffffff;
+  margin: 0 auto;
+}
+
 #content {
   margin: 0 auto;
-  width: 500px;
-  background-image: url('http://37.media.tumblr.com/49718f95de4b26c85c7cb43a4d4cd04b/tumblr_n43i0v0hhG1rbl71oo1_250.gif');
+  width: 700px;
+  background-color: pink;
+  /*background-image: url('http://37.media.tumblr.com/49718f95de4b26c85c7cb43a4d4cd04b/tumblr_n43i0v0hhG1rbl71oo1_250.gif');
   background-repeat: no-repeat;
   background-attachment: scroll;
-  background-size: auto;
+  background-size: auto;*/
 }
 
 #header {
@@ -23,14 +44,19 @@ body {
   color: #ffffff;
 }
 
-button {
-  margin-bottom: 20px;
-  width: 100px;
-  height: 100px;
+#game {
+  width: 700px;
 }
 
+.stage {
+  width:800px;
+  margin: 0 auto;
+}
+
+
 .row {
-  clear: both;
+  width: 690px;
+  margin: 0 auto;
 }
 
 .column {
@@ -38,11 +64,11 @@ button {
   float: left;
   font-family: 'Londrina Shadow', cursive;
   font-size: 50px;
-  height: 65px;
+  height: 180px;
   margin: 5px;
   text-align: center;
   vertical-align: middle;
-  width: 50px;
+  width: 180px;
 }
 
 .column:hover {
@@ -56,7 +82,7 @@ button {
 }
 
 #scoreboard {
-  font-family: 'Londrina Shadow', cursive;
+  font-family: 'Amatic SC', cursive;
   font-size: 50px;
 }
 
