@@ -1,0 +1,73 @@
+@import url(https://fonts.googleapis.com/css?family=Amatic+SC);
+@import url(http://fonts.googleapis.com/css?family=Mystery+Quest);
+
+body {
+  background: url(http://subtlepatterns.com/images/transp_bg.png);
+}
+#content {
+  margin: 0 auto;
+  width: 500px;
+  background-image: url('http://37.media.tumblr.com/49718f95de4b26c85c7cb43a4d4cd04b/tumblr_n43i0v0hhG1rbl71oo1_250.gif');
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: auto;
+}
+
+#header {
+  margin-bottom: 20px;
+}
+
+#title {
+  font-family: 'Amatic SC', cursive;
+  font-size: 100px;
+  color: #ffffff;
+}
+
+button {
+  margin-bottom: 20px;
+  width: 100px;
+  height: 100px;
+}
+
+.row {
+  clear: both;
+}
+
+.column {
+  border: 1px solid #595139;
+  float: left;
+  font-family: 'Londrina Shadow', cursive;
+  font-size: 50px;
+  height: 65px;
+  margin: 5px;
+  text-align: center;
+  vertical-align: middle;
+  width: 50px;
+}
+
+.column:hover {
+  background-color: #A6977B;
+}
+
+/* when two cards match apply this class to them*/
+.found {
+  background-color: #595139;
+  color: #FFFFFF;
+}
+
+#scoreboard {
+  font-family: 'Londrina Shadow', cursive;
+  font-size: 50px;
+}
+
+/* apply to every card when the user wins */
+.won {
+  background-color: #F2F0CE;
+  border: 1px solid #83A603;
+  color: #83A603;
+}
+
+#timer {
+  font-family: 'Mystery Quest', cursive;
+  font-size: 20px;
+}
