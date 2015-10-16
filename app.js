@@ -208,15 +208,15 @@ var CardGame = (function(){
 			}
 })();
 
-// Choreo is the interstitial reset Simon game;
-
-var Choreo = (function(){
-
-      return{
-          // randomly generate an 8 step sequence of 4 buttons
-          //
-          // display first step, wait for click
-
-      }
-
-})();
+// in Be Beyonce 2.0, clicking Michelle will result in an interstitial challente - Choreo, a Simon-like game in which you have to help michelle nail the choreography;
+//
+// var Choreo = (function(){
+//
+//       return{
+//           // randomly generate an 8 step sequence of 4 buttons
+//           //
+//           // display first step, wait for click
+//
+//       }
+//
+// })();
