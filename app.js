@@ -7,7 +7,12 @@ $(document).ready(
   })
 );
 
-//TIMER FUNCTION
+// GLOBAL SCORE VARIABLES
+
+var playerScore = 0;
+var playerScoresArray = [];
+
+//TIMER FUNCTIONS
 var startTimer = function(){
   var count = function(){
     var currentSec = $('#secs');
@@ -23,6 +28,7 @@ var startTimer = function(){
       } else {
       currentMin.html(+currentMin.html() + 1)};
     }
+    playerScore++;
   };
   timerHandle = setInterval(count, 1000);
 };
@@ -35,14 +41,10 @@ var resetTimer = function(){
   stopTimer();
   $('#mins').html('00');
   $('#secs').html('00');
+  playerScore = 0;
 };
 
-//STOP TIMER FUNCTION (might just be part of the interval)
-var timerStop = function(){
-
-}
-
-// USE THIS TO SHUFFLE YOUR ARRAYS
+// SHUFFLES ARRAYS:
 function shuffle(o) {
 	for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
 		return o;
@@ -78,14 +80,11 @@ var CardGame = (function(){
             this.bey = bey;
             this.single = single;
           };
-
 	//---------variables--------------------------------------------------------//
           var container = $('#game');
 					var infoDiv = $('#info');
           var beyObjArray;
           var player = 1;
-	return {
-
 	 //---------functions-------------------------------------------------------//
 
 //creatCards() uses the CardObjCreator to make an array of card objects that
@@ -93,6 +92,7 @@ var CardGame = (function(){
 // during play; we push each beyonce object twice to create a pair (this might fuck me up later);
 // it closes by randomizing the array of objects so that when
 // they are rendered as front-end elements, we can just loop through the array
+    return {
          createCards : function(){
            beyObjArray = [];
            var shufdBeyArray = shuffle(beyArray);
@@ -183,6 +183,7 @@ var CardGame = (function(){
              window.setTimeout(function(){
                $('.stage').remove();
                CardGame.updateScoreboard();
+               debugger
                if(player < 3){
                  player ++;
                } else {
@@ -204,19 +205,16 @@ var CardGame = (function(){
             var playerScoredSecs = $('#secs').text();
             scoreLineMin.text(playerScoredMin);
             scoreLineSec.text(playerScoredSecs);
+            playerScoresArray.push(playerScore);
         }
 			}
 })();
 
 // in Be Beyonce 2.0, clicking Michelle will result in an interstitial challente - Choreo, a Simon-like game in which you have to help michelle nail the choreography;
-//
 // var Choreo = (function(){
-//
 //       return{
 //           // randomly generate an 8 step sequence of 4 buttons
 //           //
 //           // display first step, wait for click
-//
 //       }
-//
 // })();
