@@ -60,6 +60,11 @@ p {
   display: inline;
 }
 
+/*For Testing*/
+#reset {
+  background-color: red;
+}
+
 .stage {
   width:800px;
   margin: 0 auto;

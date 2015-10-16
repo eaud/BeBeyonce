@@ -11,6 +11,7 @@ $(document).ready(
 
 var playerScore = 0;
 var playerScoresArray = [];
+var scoreObjectArray = [];
 
 //TIMER FUNCTIONS
 var startTimer = function(){
@@ -108,7 +109,6 @@ var CardGame = (function(){
          },
 
 				 renderCards : function() {
-           console.log(beyObjArray);
            container.html('');
            var theStage = $('<div>');
            theStage.addClass('stage');
@@ -141,10 +141,12 @@ var CardGame = (function(){
 					 event.currentTarget.innerHTML = '<img src="' + beyToDisplay +'" />';
            window.setTimeout(function(){
              if(beyCurrentHit === 'reset'){
-             alert('uh oh, Michelle through the trap door! You better teach her the choreo or this is game OVER!');
-             $('.stage').hide();
+             alert('uh oh, Michelle through the trap door! Take it again from the top');
+             $('.stage').remove();
              //HERE WE WOULD CALL THE CHOREO MODULE STARTER;
-           }}, 1350);
+             CardGame.createCards();
+             CardGame.renderCards();
+           }}, 1400);
 
 					 var cardsClicked = $('.clicked');
 					 if(cardsClicked.length === 2){CardGame.checkForMatch()};
@@ -186,14 +188,16 @@ var CardGame = (function(){
                debugger
                if(player < 3){
                  player ++;
+                 alert('Congrats, Player ' + (player - 1) + '! \n Now it\'s your turn, Player ' + player + '!');
+                 resetTimer();
+                 $('#startGame').show();
                } else {
                  resetTimer();
                  alert('Congrats, Player ' + player + '! Now we\'ll see who run the world\(girls\)');
-                 // CALL THE FUNCTION TO DEFINE WINNER AND DISPLAY IN WINNER MODULE
+                 $('.stage').hide();
+                 CardGame.whoIsBeyonce();
+                 CardGame.renderBestinysChild();
                }
-               resetTimer();
-               alert('Congrats, Player ' + (player - 1) + '! \n Now it\'s your turn, Player ' + player + '!');
-               $('#startGame').show();
              }, 3000);
 					 }
 				},
@@ -206,6 +210,43 @@ var CardGame = (function(){
             scoreLineMin.text(playerScoredMin);
             scoreLineSec.text(playerScoredSecs);
             playerScoresArray.push(playerScore);
+        },
+
+        whoIsBeyonce : function(){
+            function ScoreObject(playerName, score) {
+              this.playerName = playerName;
+              this.score = score;
+            };
+            var playerNameArray = ['Player 1', 'Player 2', 'Player 3'];
+            debugger
+            for(i = 0; i < playerScoresArray.length; i++){
+              var oneScore = new ScoreObject(playerNameArray[i], playerScoresArray[i]);
+              scoreObjectArray.push(oneScore);
+            }
+            debugger
+            scoreObjectArray.sort(function(a, b) {
+                return parseFloat(a.score) - parseFloat(b.score);
+              });
+            debugger
+        },
+
+        renderBestinysChild : function(){
+          debugger
+          var bestinysChild = $('<div>');
+          bestinysChild.addClass('bestiny');
+          var beyonce = $('<div>');
+          beyonce.attr('id', 'beyonce');
+          beyonce.text('Congratulations, ' + scoreObjectArray[0].playerName + '! You are Beyoncé');
+          beyonce.appendTo(bestinysChild);
+          var kelly = $('<div>');
+          kelly.attr('id', 'kelly');
+          kelly.text('Ok, I see you' + scoreObjectArray[1].playerName + '! We can\'t all be Bey, but at least you\'re not Michelle?');
+          kelly.appendTo(bestinysChild);
+          var michelle = $('<div>');
+          michelle.attr('id', 'michelle');
+          michelle.text('Listen, ' + scoreObjectArray[2].playerName + '. It\'s not good news, but it could be worse news! You\'re Michelle, but at least you\'re somebody. Remember that.');
+          michelle.appendTo(bestinysChild);
+          bestinysChild.appendTo($('#game'));
         }
 			}
 })();
