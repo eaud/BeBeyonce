@@ -185,7 +185,6 @@ var CardGame = (function(){
              window.setTimeout(function(){
                $('.stage').remove();
                CardGame.updateScoreboard();
-               debugger
                if(player < 3){
                  player ++;
                  alert('Congrats, Player ' + (player - 1) + '! \n Now it\'s your turn, Player ' + player + '!');
@@ -218,20 +217,16 @@ var CardGame = (function(){
               this.score = score;
             };
             var playerNameArray = ['Player 1', 'Player 2', 'Player 3'];
-            debugger
             for(i = 0; i < playerScoresArray.length; i++){
               var oneScore = new ScoreObject(playerNameArray[i], playerScoresArray[i]);
               scoreObjectArray.push(oneScore);
             }
-            debugger
             scoreObjectArray.sort(function(a, b) {
                 return parseFloat(a.score) - parseFloat(b.score);
               });
-            debugger
         },
 
         renderBestinysChild : function(){
-          debugger
           var bestinysChild = $('<div>');
           bestinysChild.addClass('bestiny');
           var beyonce = $('<div>');
