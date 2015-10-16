@@ -22,6 +22,7 @@ p {
   font-size: 40px;
   color: #ffffff;
   margin: 0 auto;
+  display: inline;
 }
 
 #content {
@@ -36,16 +37,27 @@ p {
 
 #header {
   margin-bottom: 20px;
+  overflow: hidden;
 }
 
 #title {
   font-family: 'Amatic SC', cursive;
   font-size: 100px;
   color: #ffffff;
+  float: left;
 }
 
 #game {
   width: 700px;
+}
+
+#mins, #semi, #secs, #p1m, #p1c, #p1s, #p2m, #p2c, #p2s, #p3m, #p3c, #p3s {
+  display: inline;
+  font-family: sans-serif;
+}
+
+#scoreboard {
+  display: inline;
 }
 
 .stage {
@@ -88,12 +100,17 @@ p {
 
 /* apply to every card when the user wins */
 .won {
-  background-color: #F2F0CE;
+  /*background-color: #F2F0CE;*/
+  background-image: url(http://31.media.tumblr.com/74cd670e921475a5f412b9951896e221/tumblr_mr8ao6e2RH1qkm654o1_500.gif);
   border: 1px solid #83A603;
   color: #83A603;
 }
 
 #timer {
-  font-family: 'Mystery Quest', cursive;
+  font-family: sans-serif;
   font-size: 20px;
+  float: right;
+}
+#reset {
+  font-family: 'Amatic SC', cursive;
 }

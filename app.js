@@ -3,13 +3,44 @@ $(document).ready(
 		CardGame.createCards();
 		CardGame.renderCards();
     $('#startGame').hide();
+    startTimer();
   })
 );
 
 //TIMER FUNCTION
+var startTimer = function(){
+  var count = function(){
+    var currentSec = $('#secs');
+    var currentMin = $('#mins');
+    if(+currentSec.html() < 9){
+      currentSec.html("0"+ (+currentSec.html() + 1))
+    } else {
+    currentSec.html(+currentSec.html() + 1)};
+    if(currentSec.html() === '60'){
+      currentSec.html('00');
+      if(+currentMin.html() < 9){
+        currentMin.html("0"+ (+currentMin.html() + 1))
+      } else {
+      currentMin.html(+currentMin.html() + 1)};
+    }
+  };
+  timerHandle = setInterval(count, 1000);
+};
+
+var stopTimer = function(){
+  clearInterval(timerHandle);
+};
+
+var resetTimer = function(){
+  stopTimer();
+  $('#mins').html('00');
+  $('#secs').html('00');
+};
 
 //STOP TIMER FUNCTION (might just be part of the interval)
+var timerStop = function(){
 
+}
 
 // USE THIS TO SHUFFLE YOUR ARRAYS
 function shuffle(o) {
@@ -51,8 +82,8 @@ var CardGame = (function(){
 	//---------variables--------------------------------------------------------//
           var container = $('#game');
 					var infoDiv = $('#info');
-          var beyObjArray = [];
-
+          var beyObjArray;
+          var player = 1;
 	return {
 
 	 //---------functions-------------------------------------------------------//
@@ -63,6 +94,7 @@ var CardGame = (function(){
 // it closes by randomizing the array of objects so that when
 // they are rendered as front-end elements, we can just loop through the array
          createCards : function(){
+           beyObjArray = [];
            var shufdBeyArray = shuffle(beyArray);
 
            for(var i = 0; i < shufdBeyArray.length - 3; i++){
@@ -76,6 +108,7 @@ var CardGame = (function(){
          },
 
 				 renderCards : function() {
+           console.log(beyObjArray);
            container.html('');
            var theStage = $('<div>');
            theStage.addClass('stage');
@@ -110,6 +143,7 @@ var CardGame = (function(){
              if(beyCurrentHit === 'reset'){
              alert('uh oh, Michelle through the trap door! You better teach her the choreo or this is game OVER!');
              $('.stage').hide();
+             //HERE WE WOULD CALL THE CHOREO MODULE STARTER;
            }}, 1350);
 
 					 var cardsClicked = $('.clicked');
@@ -120,33 +154,57 @@ var CardGame = (function(){
 				 	 var cardsClicked = $('.clicked');
 					 		if(cardsClicked[0].id === cardsClicked[1].id){
 								for(var i = cardsClicked.length - 1; i >= 0; i --){
-									cardsClicked[i].removeEventListener('click', CardGame.makePlay());
-									cardsClicked[i].classList.remove('clicked');
+									cardsClicked.eq(i).off('click', CardGame.makePlay);
+									cardsClicked.eq(i).removeClass('clicked');
 								}
-								this.checkForWin();
+								CardGame.checkForWin();
 							} else {
 								window.setTimeout(function(){
 									for(var i = cardsClicked.length - 1; i >= 0; i --){
-										cardsClicked[i].innerHTML = '';
-										cardsClicked[i].classList.remove('found');
-										cardsClicked[i].classList.remove('clicked');
+										cardsClicked.eq(i).html('');
+										cardsClicked.eq(i).removeClass('found');
+										cardsClicked.eq(i).removeClass('clicked');
 									}
 								}, 1000);
 							}
 				},
 
 				 checkForWin : function() {
-					 var allFound = document.getElementsByClassName('found');
-					 if(allFound.length === 10){
-						 var youWin = document.createElement('div');
-						 	youWin.innerHTML = 'You Win!'
-						 	infoDiv.appendChild(youWin);
+					 var allFound = $('.found');
+					 if(allFound.length === 8){
+						 var youWin = $('<div>');
+						 	youWin.html('Standing Ovation!').appendTo($('.stage'));
 						 for(var i = allFound.length - 1; i >= 0; i --){
 							 allFound[i].classList.add('won');
 							 allFound[i].classList.remove('found');
 						 }
+             stopTimer();
+             $('#reset').text('GOODBYE MICHELLE');
+             window.setTimeout(function(){
+               $('.stage').remove();
+               CardGame.updateScoreboard();
+               if(player < 3){
+                 player ++;
+               } else {
+                 resetTimer();
+                 alert('Congrats, Player ' + player + '! Now we\'ll see who run the world\(girls\)');
+                 // CALL THE FUNCTION TO DEFINE WINNER AND DISPLAY IN WINNER MODULE
+               }
+               resetTimer();
+               alert('Congrats, Player ' + (player - 1) + '! \n Now it\'s your turn, Player ' + player + '!');
+               $('#startGame').show();
+             }, 3000);
 					 }
 				},
+
+        updateScoreboard : function(){
+            var scoreLineMin = $('#p' + player + 'm');
+            var scoreLineSec = $('#p' + player + 's');
+            var playerScoredMin = $('#mins').text();
+            var playerScoredSecs = $('#secs').text();
+            scoreLineMin.text(playerScoredMin);
+            scoreLineSec.text(playerScoredSecs);
+        }
 			}
 })();
 
@@ -155,6 +213,9 @@ var CardGame = (function(){
 var Choreo = (function(){
 
       return{
+          // randomly generate an 8 step sequence of 4 buttons
+          //
+          // display first step, wait for click
 
       }
 
