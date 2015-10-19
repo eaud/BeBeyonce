@@ -7,17 +7,7 @@ $(document).ready(
   })
 );
 
-<<<<<<< HEAD
 //TIMER FUNCTION
-=======
-// GLOBAL SCORE VARIABLES
-
-var playerScore = 0;
-var playerScoresArray = [];
-var scoreObjectArray = [];
-
-//TIMER FUNCTIONS
->>>>>>> 4d91ab6aa6c2e70a0e29eed5d1c807ffc3c672b8
 var startTimer = function(){
   var count = function(){
     var currentSec = $('#secs');
@@ -33,10 +23,6 @@ var startTimer = function(){
       } else {
       currentMin.html(+currentMin.html() + 1)};
     }
-<<<<<<< HEAD
-=======
-    playerScore++;
->>>>>>> 4d91ab6aa6c2e70a0e29eed5d1c807ffc3c672b8
   };
   timerHandle = setInterval(count, 1000);
 };
@@ -49,7 +35,6 @@ var resetTimer = function(){
   stopTimer();
   $('#mins').html('00');
   $('#secs').html('00');
-<<<<<<< HEAD
 };
 
 //STOP TIMER FUNCTION (might just be part of the interval)
@@ -58,12 +43,6 @@ var timerStop = function(){
 }
 
 // USE THIS TO SHUFFLE YOUR ARRAYS
-=======
-  playerScore = 0;
-};
-
-// SHUFFLES ARRAYS:
->>>>>>> 4d91ab6aa6c2e70a0e29eed5d1c807ffc3c672b8
 function shuffle(o) {
 	for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
 		return o;
@@ -99,20 +78,14 @@ var CardGame = (function(){
             this.bey = bey;
             this.single = single;
           };
-<<<<<<< HEAD
 
-=======
->>>>>>> 4d91ab6aa6c2e70a0e29eed5d1c807ffc3c672b8
 	//---------variables--------------------------------------------------------//
           var container = $('#game');
 					var infoDiv = $('#info');
           var beyObjArray;
           var player = 1;
-<<<<<<< HEAD
 	return {
 
-=======
->>>>>>> 4d91ab6aa6c2e70a0e29eed5d1c807ffc3c672b8
 	 //---------functions-------------------------------------------------------//
 
 //creatCards() uses the CardObjCreator to make an array of card objects that
@@ -120,10 +93,6 @@ var CardGame = (function(){
 // during play; we push each beyonce object twice to create a pair (this might fuck me up later);
 // it closes by randomizing the array of objects so that when
 // they are rendered as front-end elements, we can just loop through the array
-<<<<<<< HEAD
-=======
-    return {
->>>>>>> 4d91ab6aa6c2e70a0e29eed5d1c807ffc3c672b8
          createCards : function(){
            beyObjArray = [];
            var shufdBeyArray = shuffle(beyArray);
@@ -139,10 +108,7 @@ var CardGame = (function(){
          },
 
 				 renderCards : function() {
-<<<<<<< HEAD
            console.log(beyObjArray);
-=======
->>>>>>> 4d91ab6aa6c2e70a0e29eed5d1c807ffc3c672b8
            container.html('');
            var theStage = $('<div>');
            theStage.addClass('stage');
@@ -175,19 +141,10 @@ var CardGame = (function(){
 					 event.currentTarget.innerHTML = '<img src="' + beyToDisplay +'" />';
            window.setTimeout(function(){
              if(beyCurrentHit === 'reset'){
-<<<<<<< HEAD
              alert('uh oh, Michelle through the trap door! You better teach her the choreo or this is game OVER!');
              $('.stage').hide();
              //HERE WE WOULD CALL THE CHOREO MODULE STARTER;
            }}, 1350);
-=======
-             alert('uh oh, Michelle through the trap door! Take it again from the top');
-             $('.stage').remove();
-             //HERE WE WOULD CALL THE CHOREO MODULE STARTER;
-             CardGame.createCards();
-             CardGame.renderCards();
-           }}, 1400);
->>>>>>> 4d91ab6aa6c2e70a0e29eed5d1c807ffc3c672b8
 
 					 var cardsClicked = $('.clicked');
 					 if(cardsClicked.length === 2){CardGame.checkForMatch()};
@@ -208,11 +165,7 @@ var CardGame = (function(){
 										cardsClicked.eq(i).removeClass('found');
 										cardsClicked.eq(i).removeClass('clicked');
 									}
-<<<<<<< HEAD
 								}, 1000);
-=======
-								}, 500);
->>>>>>> 4d91ab6aa6c2e70a0e29eed5d1c807ffc3c672b8
 							}
 				},
 
@@ -220,12 +173,7 @@ var CardGame = (function(){
 					 var allFound = $('.found');
 					 if(allFound.length === 8){
 						 var youWin = $('<div>');
-<<<<<<< HEAD
 						 	youWin.html('Standing Ovation!').appendTo($('.stage'));
-=======
-             youWin.addClass('winMessage');
-						 	youWin.html('YAAAS<br>KWEEN!').appendTo($('.stage'));
->>>>>>> 4d91ab6aa6c2e70a0e29eed5d1c807ffc3c672b8
 						 for(var i = allFound.length - 1; i >= 0; i --){
 							 allFound[i].classList.add('won');
 							 allFound[i].classList.remove('found');
@@ -237,7 +185,6 @@ var CardGame = (function(){
                CardGame.updateScoreboard();
                if(player < 3){
                  player ++;
-<<<<<<< HEAD
                } else {
                  resetTimer();
                  alert('Congrats, Player ' + player + '! Now we\'ll see who run the world\(girls\)');
@@ -246,18 +193,6 @@ var CardGame = (function(){
                resetTimer();
                alert('Congrats, Player ' + (player - 1) + '! \n Now it\'s your turn, Player ' + player + '!');
                $('#startGame').show();
-=======
-                 alert('Congrats, Player ' + (player - 1) + '! \n Now it\'s your turn, Player ' + player + '!');
-                 resetTimer();
-                 $('#startGame').show();
-               } else {
-                 resetTimer();
-                 alert('Congrats, Player ' + player + '! Now we\'ll see who run the world \(girls\)');
-                 $('.stage').hide();
-                 CardGame.whoIsBeyonce();
-                 CardGame.renderBestinysChild();
-               }
->>>>>>> 4d91ab6aa6c2e70a0e29eed5d1c807ffc3c672b8
              }, 3000);
 					 }
 				},
@@ -269,48 +204,10 @@ var CardGame = (function(){
             var playerScoredSecs = $('#secs').text();
             scoreLineMin.text(playerScoredMin);
             scoreLineSec.text(playerScoredSecs);
-<<<<<<< HEAD
-=======
-            playerScoresArray.push(playerScore);
-        },
-
-        whoIsBeyonce : function(){
-            function ScoreObject(playerName, score) {
-              this.playerName = playerName;
-              this.score = score;
-            };
-            var playerNameArray = ['Player 1', 'Player 2', 'Player 3'];
-            for(i = 0; i < playerScoresArray.length; i++){
-              var oneScore = new ScoreObject(playerNameArray[i], playerScoresArray[i]);
-              scoreObjectArray.push(oneScore);
-            }
-            scoreObjectArray.sort(function(a, b) {
-                return parseFloat(a.score) - parseFloat(b.score);
-              });
-        },
-
-        renderBestinysChild : function(){
-          var bestinysChild = $('<div>');
-          bestinysChild.addClass('bestiny');
-          var beyonce = $('<div>');
-          beyonce.attr('id', 'beyonce');
-          beyonce.text('Congratulations, ' + scoreObjectArray[0].playerName + '! You are \n Beyoncé.');
-          beyonce.appendTo(bestinysChild);
-          var kelly = $('<div>');
-          kelly.attr('id', 'kelly');
-          kelly.text('Ok, ' + scoreObjectArray[1].playerName + ', at least you\'re not Michelle?');
-          kelly.appendTo(bestinysChild);
-          var michelle = $('<div>');
-          michelle.attr('id', 'michelle');
-          michelle.text('Listen, ' + scoreObjectArray[2].playerName + '. It\'s not good news, but it could be worse news! You\'re Michelle, but at least you\'re somebody. Remember that.');
-          michelle.appendTo(bestinysChild);
-          bestinysChild.appendTo($('#game'));
->>>>>>> 4d91ab6aa6c2e70a0e29eed5d1c807ffc3c672b8
         }
 			}
 })();
 
-<<<<<<< HEAD
 // Choreo is the interstitial reset Simon game;
 
 var Choreo = (function(){
@@ -323,13 +220,3 @@ var Choreo = (function(){
       }
 
 })();
-=======
-// in Be Beyonce 2.0, clicking Michelle will result in an interstitial challente - Choreo, a Simon-like game in which you have to help michelle nail the choreography;
-// var Choreo = (function(){
-//       return{
-//           // randomly generate an 8 step sequence of 4 buttons
-//           //
-//           // display first step, wait for click
-//       }
-// })();
->>>>>>> 4d91ab6aa6c2e70a0e29eed5d1c807ffc3c672b8
