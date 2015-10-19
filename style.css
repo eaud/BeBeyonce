@@ -44,7 +44,7 @@ button:active {
 
 h2 {
   margin: 0 auto;
-  padding-left: 50px;
+  padding-left: 60px;
   padding-top: 20px;
   text-decoration: overline;
 }
@@ -101,11 +101,11 @@ div {
 
 #scoreboard {
   display: inline;
-  padding-left: 50px;
+  padding-left: 60px;
 }
 
 #player1, #player2, #player3 {
-  padding-left: 50px;
+  padding-left: 60px;
 }
 
 
