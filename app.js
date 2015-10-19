@@ -167,7 +167,7 @@ var CardGame = (function(){
 										cardsClicked.eq(i).removeClass('found');
 										cardsClicked.eq(i).removeClass('clicked');
 									}
-								}, 1000);
+								}, 500);
 							}
 				},
 
@@ -175,7 +175,8 @@ var CardGame = (function(){
 					 var allFound = $('.found');
 					 if(allFound.length === 8){
 						 var youWin = $('<div>');
-						 	youWin.html('Standing Ovation!').appendTo($('.stage'));
+             youWin.addClass('winMessage');
+						 	youWin.html('YAAAS<br>KWEEN!').appendTo($('.stage'));
 						 for(var i = allFound.length - 1; i >= 0; i --){
 							 allFound[i].classList.add('won');
 							 allFound[i].classList.remove('found');
@@ -192,7 +193,7 @@ var CardGame = (function(){
                  $('#startGame').show();
                } else {
                  resetTimer();
-                 alert('Congrats, Player ' + player + '! Now we\'ll see who run the world\(girls\)');
+                 alert('Congrats, Player ' + player + '! Now we\'ll see who run the world \(girls\)');
                  $('.stage').hide();
                  CardGame.whoIsBeyonce();
                  CardGame.renderBestinysChild();
@@ -231,11 +232,11 @@ var CardGame = (function(){
           bestinysChild.addClass('bestiny');
           var beyonce = $('<div>');
           beyonce.attr('id', 'beyonce');
-          beyonce.text('Congratulations, ' + scoreObjectArray[0].playerName + '! You are Beyoncé');
+          beyonce.text('Congratulations, ' + scoreObjectArray[0].playerName + '! You are \n Beyoncé.');
           beyonce.appendTo(bestinysChild);
           var kelly = $('<div>');
           kelly.attr('id', 'kelly');
-          kelly.text('Ok, I see you' + scoreObjectArray[1].playerName + '! We can\'t all be Bey, but at least you\'re not Michelle?');
+          kelly.text('Ok, ' + scoreObjectArray[1].playerName + ', at least you\'re not Michelle?');
           kelly.appendTo(bestinysChild);
           var michelle = $('<div>');
           michelle.attr('id', 'michelle');
